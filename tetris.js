@@ -79,14 +79,14 @@ function createPieces(type) {
         ];
     } else if (type === 'D') {
         return [
-            [1, 1, 0],
-            [0, 1, 1],
+            [6, 6, 0],
+            [0, 6, 6],
             [0, 0, 0],
         ];
     } else if (type === 'F') {
         return [
-            [0, 1, 1],
-            [1, 1, 0],
+            [0, 7, 7],
+            [7, 7, 0],
             [0, 0, 0],
         ];
     }
@@ -169,6 +169,8 @@ function playReset() {
         (player.matrix[0].length / 2 | 0);
     if (collide(arena, player)) {
         arena.forEach(row => row.fill(0));
+        player.score = 0;
+        updateScore();
     }
 }
 
@@ -202,12 +204,15 @@ let lastTime = 0;
 
 function update(time = 0) {
     const deltaTime = time - lastTime;
-    lastTime = time;
+    // lastTime = time;
     dropCounter += deltaTime;
     if (dropCounter > dropInterval) {
-        player.pos.y++;
-        dropCounter = 0;
+        // player.pos.y++;
+        // dropCounter = 0;
+        playerDrop();
     }
+
+    lastTime = time;
     draw();
     requestAnimationFrame(update);
 }
